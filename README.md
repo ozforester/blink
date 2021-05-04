@@ -21,3 +21,5 @@ avrdude -p atmega8 -c usbasp -U flash:w:blink.hex<br>
 
 
 So that's it.
+
+![alt text](file://BLINK.JPG)

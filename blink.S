@@ -1,1 +1,53 @@
 
+;Copyright (c) 2021 ozforester. All rights reserved.
+;Use of this source code is goverened by a MIT license
+;that can be found in the LICENSE file.
+
+; ATmega8 @4MHz internal osc. (H:D9, L:23)
+; LED blinks on timer0 ovf
+; ozforester (MIT license)
+
+; хотим человеческие названия регистеров и нулевой офсет
+#include <avr/io.h>
+#define __SFR_OFFSET 0
+; выбираем регистры для счетчика и временного хранения
+#define temp r16
+#define cnt  r17
+; количество переполнений таймера до опрокидывания порта светодиода
+#define times 5
+.global main			; символ
+.global TIMER0_OVF_vect		; аналогично, и вспоминаем, что флаг сбросится без нас
+
+main:
+	in temp, DDRB		; читаем текущее значение регистра направления порта B
+	ori temp, 0x01		; будем менять бит B0 (с уголка DIP28 проще приткнуться)
+	out DDRB, temp	 	; настариваем B0 на выход
+	in temp, PORTB		; читаем текущее состояние порта B0
+	andi temp, 0xfe		; сбрасываем B0
+	out PORTB, temp	 	; чтобы диодик пока не светился
+	ldi cnt, times 		; подготавливаем счетчик ( TIM0 переполняется чеерз 65 мс., а счетчик будет 5 раз по 65)
+	ldi temp, (1<<CS00)	; ставим бит пресклера CS00
+        ori temp, (1<<CS02)	; и бит прескалера CS02
+        out TCCR0, temp		; получим прескалер 1024 (см. даташит, 4МГц / прескалер и будут те самые 65 мс.)
+	ldi temp, (1<<TOIE0)	; разрешаем прерывание
+	out TIMSK, temp		; по переполнению таймера
+	sei			; и разершаем прерывания вообще (тут таймер сразу побежит переполняться и дёргать TIM0_OVF)
+loop:
+	rjmp loop 		; ничего не делаем (или следим чтобы никто другой не сделал что-нибудь полезное, лул)
+				; пока за нас работает прерывание TIMER0_OVF_vect
+TIMER0_OVF_vect:
+	cli
+	subi cnt, 1		; уменьшаем счетчик
+	brne Pass		; переход сразу на метку Далее пока он больше 0
+	ldi temp, 1		; если 0, то подготавливаем временный регистр для ксора
+	in   cnt, PORTB		; читаем порт светодиода в регистр счетчика (который пока не при делах)
+	eor  cnt, temp		; ксорим счетчик и временный (после чего результат имеем во временном)
+	out  PORTB, cnt		; пишем результат обратно в порт
+        ldi  cnt, times	        ; снова загружаем счетчик для следующего цикла
+	Pass:			; метка к которой можно перейти когда нужно
+	sei
+	reti			; выход из процедуры туда, откуда заявились (loop)
+
+; avr-gcc -Os -Wall -mmcu=atmega8 blink.S -o blink
+; avr-objcopy -O ihex -R .eeprom blink blink.hex
+; avrdude -p atmega8 -c usbasp -U flash:w:blink.hex

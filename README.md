@@ -1,23 +1,23 @@
 # blink
-You probably know that "blink" for mc people means the same as "Hello world!" for others.
+You probably know that "blink" for mc people means the same as "Hello world!" for others.<br>
 
 blink.c - my attempt to use atmega8 avr-gcc and c language to blink a led.<br>
 blink.S - my attempt to use atmega8 avr-gcc and assembly to blink.<br>
-Makefile - to do my work more easily.
+Makefile - to do my work more easily.<br>
 
-a command line tools usage:
+a command line tools usage:<br>
 
-C source:
+C source:<br>
 
-avr-gcc -Wall -Os -mmcu=atmega8 -DF_CPU=4000000L -o blink blink.c
-avr-objcopy -O ihex blink blink.hex
-avrdude -c usbasp -p m8 -B 1 -U flash:w:blink.hex
+avr-gcc -Wall -Os -mmcu=atmega8 -DF_CPU=4000000L -o blink blink.c<br>
+avr-objcopy -O ihex blink blink.hex<br>
+avrdude -c usbasp -p m8 -B 1 -U flash:w:blink.hex<br>
 
-Assembly source:
+Assembly source:<br>
 
-avr-gcc -Os -Wall -mmcu=atmega8 blink.S -o blink
-avr-objcopy -O ihex -R .eeprom blink blink.hex
-avrdude -p atmega8 -c usbasp -U flash:w:blink.hex
+avr-gcc -Os -Wall -mmcu=atmega8 blink.S -o blink<br>
+avr-objcopy -O ihex -R .eeprom blink blink.hex<br>
+avrdude -p atmega8 -c usbasp -U flash:w:blink.hex<br>
 
 
 So that's it.

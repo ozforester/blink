@@ -5,7 +5,6 @@
 
 ; ATmega8 @4MHz internal osc. (H:D9, L:23)
 ; LED blinks on timer0 ovf
-; ozforester (MIT license)
 
 ; хотим человеческие названия регистеров и нулевой офсет
 #include <avr/io.h>

@@ -5,7 +5,7 @@ blink.c - my attempt to use atmega8 avr-gcc and c language to blink a led.<br>
 blink.S - my attempt to use atmega8 avr-gcc and assembly to blink.<br>
 Makefile - to do my work more easily.<br>
 
-a command line tools usage:<br>
+If you prefer a console commands:<br>
 
 C source:<br>
 

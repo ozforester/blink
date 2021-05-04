@@ -1,7 +1,7 @@
 
-;Copyright (c) 2021 ozforester. All rights reserved.
-;Use of this source code is goverened by a MIT license
-;that can be found in the LICENSE file.
+; Copyright (c) 2021 ozforester. All rights reserved.
+; Use of this source code is goverened by a MIT license
+; that can be found in the LICENSE file.
 
 ; ATmega8 @4MHz internal osc. (H:D9, L:23)
 ; LED blinks on timer0 ovf

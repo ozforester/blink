@@ -5,7 +5,7 @@ that can be found in the LICENSE file.
 */
 
 /*
- mega8 @4MHz internal osc. (H:D9, L:23)
+ ATmega8 @4MHz internal osc. (H:D9, L:23)
  LED blinks on timer0 ovf
  (c) ozforester MIT
 */

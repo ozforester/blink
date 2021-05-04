@@ -16,7 +16,7 @@ avrdude -c usbasp -p m8 -B 1 -U flash:w:blink.hex<br>
 Assembly source:<br>
 
 avr-gcc -Os -Wall -mmcu=atmega8 blink.S -o blink<br>
-avr-objcopy -O ihex -R .eeprom blink blink.hex<br>
+avr-objcopy -O ihex blink blink.hex<br>
 avrdude -p atmega8 -c usbasp -U flash:w:blink.hex<br>
 
 

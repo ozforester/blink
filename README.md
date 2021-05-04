@@ -7,11 +7,17 @@ Makefile - to do my work more easily.
 
 a command line tools usage:
 
+C source:
 
+avr-gcc -Wall -Os -mmcu=atmega8 -DF_CPU=4000000L -o blink blink.c
+avr-objcopy -O ihex blink blink.hex
+avrdude -c usbasp -p m8 -B 1 -U flash:w:blink.hex
 
-; avr-gcc -Os -Wall -mmcu=atmega8 blink.S -o blink
-; avr-objcopy -O ihex -R .eeprom blink blink.hex
-; avrdude -p atmega8 -c usbasp -U flash:w:blink.hex
+Assembly source:
+
+avr-gcc -Os -Wall -mmcu=atmega8 blink.S -o blink
+avr-objcopy -O ihex -R .eeprom blink blink.hex
+avrdude -p atmega8 -c usbasp -U flash:w:blink.hex
 
 
 So that's it.

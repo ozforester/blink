@@ -15,7 +15,7 @@ that can be found in the LICENSE file.
 uint8_t counter = 5; // 8-O suddenly a counter
 
 ISR (TIMER0_OVF_vect){ // on each timer0 overflow
-  if( counter ) counter--; // or 5 times 65 ms. appx. decrements
+  if( counter ) counter--; // either 5 times 65 ms. appx. decrements
   else { counter = 5; PORTB ^= (1 << PB0); } // or flops a led state
 }
 

@@ -19,7 +19,6 @@ avr-gcc -Os -Wall -mmcu=atmega8 blink.S -o blink<br>
 avr-objcopy -O ihex blink blink.hex<br>
 avrdude -p atmega8 -c usbasp -B 1 -U flash:w:blink.hex<br>
 
-
 So that's it.<br>
 
 ![screenshot](BLINK.JPG)

@@ -20,6 +20,6 @@ avr-objcopy -O ihex -R .eeprom blink blink.hex<br>
 avrdude -p atmega8 -c usbasp -U flash:w:blink.hex<br>
 
 
-So that's it.
+So that's it.<br>
 
-![alt text](file://BLINK.JPG)
+![screenshot](BLINK.JPG)

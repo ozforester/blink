@@ -46,7 +46,3 @@ TIMER0_OVF_vect:
 	Pass:			; метка к которой можно перейти когда нужно
 	sei
 	reti			; выход из процедуры туда, откуда заявились (loop)
-
-; avr-gcc -Os -Wall -mmcu=atmega8 blink.S -o blink
-; avr-objcopy -O ihex -R .eeprom blink blink.hex
-; avrdude -p atmega8 -c usbasp -U flash:w:blink.hex

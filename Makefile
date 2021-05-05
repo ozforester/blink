@@ -18,4 +18,4 @@ flash:
 	avrdude -c usbasp -p m8 -B 1 -U flash:w:blink.hex
 
 clean:
-	rm -f $(OBJECTS) $(TARGET).elf $(TARGET).hex
+	rm -f $(OBJECTS) $(TARGET) $(TARGET).elf $(TARGET).hex

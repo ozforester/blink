@@ -6,7 +6,7 @@
 ; ATmega8 @4MHz internal osc. (H:D9, L:23)
 ; LED blinks on timer0 ovf
 
-; хотим человеческие названия регистеров и нулевой офсет
+; хотим человеческие названия регистров и нулевой офсет
 #include <avr/io.h>
 #undef __SFR_OFFSET
 #define __SFR_OFFSET 0

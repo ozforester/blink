@@ -1,3 +1,8 @@
+
+# Copyright (c) 2021 ozforester. All rights reserved.
+# Use of this source code is goverened by a MIT license
+# that can be found in the LICENSE file.
+
 TARGET	 = blink
 SOURCES := $(wildcard *.c)
 OBJECTS  = $(SOURCES:.c=.o)

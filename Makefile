@@ -9,8 +9,13 @@ all:
 	avr-size blink.elf
 	avr-size blink.hex
 
+asm:
+	avr-gcc -Wall -Os -mmcu=atmega8 -o blink blink.S
+	avr-objcopy -O ihex blink blink.hex
+	avr-size blink.hex
+
 flash:
 	avrdude -c usbasp -p m8 -B 1 -U flash:w:blink.hex
 
 clean:
-	rm -f $(OBJECTS) $(TARGET).elf $(TARGET).hex 
+	rm -f $(OBJECTS) $(TARGET).elf $(TARGET).hex

@@ -4,11 +4,13 @@
 ; that can be found in the LICENSE file.
 
 ; ATmega8 @4MHz internal osc. (H:D9, L:23)
-; LED blinks on timer0 ovf
+; defined LED blinks on timer0 ovf
 
 #undef __SFR_OFFSET
 #define __SFR_OFFSET 0
-
+#define DDR DDRD
+#define PORT PORTD
+#define PIN PD7
 #include <avr/io.h>
 temp = 16			; регистр для временного хранения
 cnt = 17			; регистр для счетчика
@@ -17,8 +19,8 @@ cnt = 17			; регистр для счетчика
 .global TIMER0_OVF_vect		; аналогично, и вспоминаем, что флаг сбросится без нас
 
 main:
-	sbi DDRB, 0x00		; B0 output
-	sbi PORTB, 0x00		; B0 low
+	sbi DDR, PIN		; set pin output
+	sbi PORT, PIN		; set pin low
 	ldi cnt, 5 		; подготавливаем счетчик ( TIM0 переполняется чеерз 65 мс., а счетчик будет 5 раз по 65)
 	ldi temp, (1<<CS00)	; ставим бит пресклера CS00
         ori temp, (1<<CS02)	; и бит прескалера CS02
@@ -33,10 +35,10 @@ TIMER0_OVF_vect:
 	cli			; на мгновение запрещаем прерывания
 	subi cnt, 1		; уменьшаем счетчик
 	brne Pass		; переход сразу на метку Pass пока он больше 0
-	ldi temp, 1		; если 0, то подготавливаем временный регистр для ксора B0
-	in   cnt, PORTB		; читаем порт светодиода в регистр счетчика (который пока не при делах)
+	ldi temp, (1<<PIN)	; если 0, то подготавливаем временный регистр для ксора B0
+	in   cnt, PORT		; читаем порт светодиода в регистр счетчика (который пока не при делах)
 	eor  cnt, temp		; ксорим счетчик и временный (после чего результат имеем в счетчике)
-	out  PORTB, cnt		; пишем результат обратно в порт
+	out  PORT, cnt		; пишем результат обратно в порт
         ldi  cnt, 5	        ; восстанавливаем счетчик для следующего цикла
 	Pass:			; метка к которой можно перейти если надо
 	sei			; разрешаем прерывания

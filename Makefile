@@ -6,21 +6,18 @@
 TARGET	 = blink
 SOURCES := $(wildcard *.c)
 OBJECTS  = $(SOURCES:.c=.o)
-
 all:
-	avr-gcc -fno-stack-protector -fno-pic -std=c99 -Wall -Os -mmcu=atmega8 -o blink.o blink.c
-	avr-ld -o blink.elf blink.o
-	avr-objcopy -j .text -j .data -O ihex blink.o blink.hex
-	avr-size blink.elf
+	avr-gcc -no-pie -fno-stack-protector -fno-pic -std=c99 -DF_CPU=4000000L -Wall -Os -mmcu=atmega8 -o blink blink.c
+	avr-objcopy -O ihex blink blink.hex
 	avr-size blink.hex
 
 asm:
-	avr-gcc -Wall -Os -mmcu=atmega8 -o blink blink.S
+	avr-gcc -no-pie -fno-stack-protector -fno-pic -Wall -Os -mmcu=atmega8 -o blink blink.S
 	avr-objcopy -O ihex blink blink.hex
 	avr-size blink.hex
 
 flash:
-	avrdude -c usbasp -p m8 -B 1 -U flash:w:blink.hex
+	avrdude -c usbasp -p m8 -B 2 -U flash:w:blink.hex
 
 clean:
 	rm -f $(OBJECTS) $(TARGET) $(TARGET).elf $(TARGET).hex

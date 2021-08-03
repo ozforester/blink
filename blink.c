@@ -16,11 +16,11 @@ uint8_t counter = 5; // 8-O suddenly a counter
 
 ISR (TIMER0_OVF_vect){ // on each timer0 overflow
   if( counter ) counter--; // either 5 times 65 ms. appx. decrements
-  else { counter = 5; PORTB ^= (1 << PB0); } // or flops a led state
+  else { counter = 5; PORTD ^= (1 << PD7); } // or flops a led state
 }
 
 int main(){
-  DDRB = (1 << PB0); // sets B0 as output
+  DDRD = (1 << PD7); // sets B0 as output
   TCCR0 = (1<<CS02) | (1<<CS00); // sets prescaler to 1024
   TIMSK = (1 << TOIE0); // enables timer0 overflow isr event
   sei(); // and does it globally too

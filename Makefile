@@ -15,7 +15,7 @@ all:
 	avr-size blink.hex
 
 asm:
-	avr-gcc -Wall -Os -mmcu=atmega8 -o blink blink.S
+	avr-gcc -Wall -Os -mmcu=atmega8 -F_CPU=4000000 -o blink blink.S
 	avr-objcopy -O ihex blink blink.hex
 	avr-size blink.hex
 

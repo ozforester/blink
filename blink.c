@@ -20,9 +20,9 @@ ISR (TIMER0_OVF_vect){ // on each timer0 overflow
 }
 
 int main(){
-  DDRD = (1 << PD7); // sets B0 as output
-  TCCR0 = (1<<CS02) | (1<<CS00); // sets prescaler to 1024
-  TIMSK = (1 << TOIE0); // enables timer0 overflow isr event
+  DDRD |= (1 << PD7); // sets D7 as output
+  TCCR0 |= (1<<CS02) | (1<<CS00); // sets prescaler to 1024
+  TIMSK |= (1 << TOIE0); // enables timer0 overflow isr event
   sei(); // and does it globally too
   while(1); // just exhausts universe
 }
